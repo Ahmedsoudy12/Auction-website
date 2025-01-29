@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - Bidly{% endblock %}
+
+{% block content %}
+<div class="signup-section">
+    <div class="signup-card">
+        <h1>Sign Up</h1>
+        <form>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm-password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male">
+                <label class="form-check-label" for="inlineRadio1">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female">
+                <label class="form-check-label" for="inlineRadio2">Female</label>
+            </div>
+
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>Choose...</option>
+                    <option value="seller">Seller</option>
+                    <option value="bidder">Bidder</option>
+                    
+                  </select>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Notify me via email with the news!</label>
+                  </div>
+
+            <button type="submit" class="btn w-100">Sign Up</button>
+        </form>
+        <p class="mt-3 text-center">
+            Already have an account? <a href="login.html" style="color: #863999;">Log in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
