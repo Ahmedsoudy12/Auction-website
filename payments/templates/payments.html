@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Dashboard{% endblock %}
+
+{% block content %}
+<div class="payment-section">
+    <h1 class="text-center">Payment Dashboard</h1>
+    <div class="payment-cards">
+        <div class="card">
+            <h2>Total Transactions</h2>
+            <p>1,024</p>
+        </div>
+        <div class="card">
+            <h2>Pending Payments</h2>
+            <p>15</p>
+        </div>
+        <div class="card">
+            <h2>Total Revenue</h2>
+            <p>$75,000</p>
+        </div>
+    </div>
+    <div class="transaction-list">
+        <h2>Recent Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#12345</td>
+                    <td>$500</td>
+                    <td class="completed">Completed</td>
+                    <td>2025-01-29</td>
+                </tr>
+                <tr>
+                    <td>#12346</td>
+                    <td>$1,200</td>
+                    <td class="pending">Pending</td>
+                    <td>2025-01-28</td>
+                </tr>
+                <tr>
+                    <td>#12347</td>
+                    <td>$300</td>
+                    <td class="failed">Failed</td>
+                    <td>2025-01-27</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

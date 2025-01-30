@@ -1,7 +1,15 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# from django.contrib.auth.models import AbstractUser
+class CustomUser(AbstractUser):
+    # Add custom fields if needed
+    GENDER_CHOICES = [
+        ('M','Male'),
+        ('F','Female'),
+    ]
 
-# class CustomUser(AbstractUser):
-#     # Add custom fields if needed
-#     pass
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
+    notify_me = models.BooleanField(default=False)  # Checkbox for email notifications
+
+    def __str__(self):
+        return self.username

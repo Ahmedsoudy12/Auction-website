@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics Dashboard{% endblock %}
+
+{% block content %}
+<div class="analytics-section">
+    <h1 class="text-center">Analytics Dashboard</h1>
+    <div class="analytics-cards">
+        <div class="card">
+            <h2>Total Users</h2>
+            <p>1,234</p>
+        </div>
+        <div class="card">
+            <h2>Active Users</h2>
+            <p>567</p>
+        </div>
+        <div class="card">
+            <h2>Revenue</h2>
+            <p>$12,345</p>
+        </div>
+    </div>
+    <div class="chart-section">
+        <h2>Monthly Performance</h2>
+        <div class="chart-placeholder">
+            <!-- Placeholder for a chart -->
+            <p>Chart will be displayed here</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

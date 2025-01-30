@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def auctions(request):
+    return render(request, 'auctions.html')

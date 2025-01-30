@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - Bidly{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Your Profile</h1>
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h5 class="card-title">Hello, {{ user.username }}!</h5>
+            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            <p class="card-text"><strong>Gender:</strong> {{ user.gender }}</p>
+            <p class="card-text"><strong>Notify Me:</strong> {{ user.notify_me }}</p>
+            <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
