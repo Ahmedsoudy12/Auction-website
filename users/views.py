@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserUpdateForm
 from django.contrib import messages
 
 # function-bases views for the login, logout and signup pages
@@ -13,7 +13,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)  
-            messages.success(request, "You have successfully logged in!")
+            # messages.success(request, "You have successfully logged in!")
             return redirect('home')  
         else:
             messages.error(request, "Invalid username or password. Please try again.")
@@ -22,12 +22,22 @@ def login_user(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html', {'user': request.user})
+    if request.method == 'POST':
+        # Include request.FILES to handle file uploads
+        form = CustomUserUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()  # Save the form, including the uploaded file
+            messages.success(request, "Your profile has been updated successfully!")
+            return redirect('profile')  # Redirect to the profile page after saving
+    else:
+        form = CustomUserUpdateForm(instance=request.user)  # Pre-fill the form with the user's current data
+
+    return render(request, 'profile.html', {'form': form, 'user': request.user})
 
 
 def logout_user(request):
     logout(request)  # Logs out the user
-    messages.success(request, "You have successfully logged out!")
+    # messages.success(request, "You have successfully logged out!")
     return redirect('home')
 
 def signup(request):

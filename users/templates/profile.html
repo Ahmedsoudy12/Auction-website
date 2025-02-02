@@ -1,18 +1,80 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Profile - Bidly{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center">Your Profile</h1>
-    <div class="card mx-auto" style="max-width: 500px;">
-        <div class="card-body">
-            <h5 class="card-title">Hello, {{ user.username }}!</h5>
-            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
-            <p class="card-text"><strong>Gender:</strong> {{ user.gender }}</p>
-            <p class="card-text"><strong>Notify Me:</strong> {{ user.notify_me }}</p>
-            <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
-        </div>
-    </div>
-</div>
+    <h1 class="text-center mb-4">Your Profile</h1>
+    <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card-body text-center">
+            <!-- Display Profile Picture -->
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'images/default_pp.jpg' %}" alt="Default Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+            {% endif %}
+
+            <!-- Profile Form -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="profile_picture" class="form-label"><strong>Update Profile Picture:</strong></label>
+                    {{ form.profile_picture }}
+                </div>
+            
+                <div class="mb-3">
+                    <label for="username" class="form-label"><strong>Username:</strong></label>
+                    <input type="text" id="username" name="username" value="{{ form.username.value }}">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="email" class="form-label"><strong>Email:</strong></label>
+                    <input type="email" id="email" name="email" value="{{ form.email.value }}">
+                </div>
+            
+                <div class="mb-3">
+                    <label class="form-label"><strong>Gender:</strong></label>
+                    <div>
+                        <input type="radio" id="gender_male" name="gender" value="M" {% if form.gender.value == "M" %}checked{% endif %} disabled>
+                        <label for="gender_male">Male</label>
+                        <input type="radio" id="gender_female" name="gender" value="F" {% if form.gender.value == "F" %}checked{% endif %} disabled>
+                        <label for="gender_female">Female</label>
+                    </div>
+                </div>
+            
+                <div class="mb-3">
+                    <label class="form-label"><strong>Notify Me:</strong></label>
+                    <input type="checkbox" id="notify_me" name="notify_me" {% if form.notify_me.value %}checked{% endif %} disabled>
+                    <label for="notify_me">Receive notifications via email</label>
+                </div>
+            
+                <!-- Edit and Save Buttons -->
+                <div class="text-center mt-4">
+                    <button type="button" id="edit-button" class="btn btn-primary">Edit</button>
+                    <button type="submit" id="save-button" class="btn btn-success d-none">Save Changes</button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+            
+            <script>
+                // JavaScript to toggle between Edit and Save modes
+                const editButton = document.getElementById('edit-button');
+                const saveButton = document.getElementById('save-button');
+                const formFields = document.querySelectorAll('input, select');
+            
+                editButton.addEventListener('click', () => {
+                    // Enable all form fields
+                    formFields.forEach(field => {
+                        if (field.type !== 'hidden') {
+                            field.removeAttribute('readonly');
+                            field.removeAttribute('disabled');
+                        }
+                    });
+            
+                    // Show the Save button and hide the Edit button
+                    saveButton.classList.remove('d-none');
+                    editButton.classList.add('d-none');
+                });
+            </script>
 {% endblock %}

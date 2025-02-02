@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -397,30 +398,72 @@
             }
         }
     </style>
+    <!-- Navbar CSS -->
+    <style>
+    .navbar-nav .nav-item {
+        margin-right: 5px; /* Adjust spacing between items */
+    }
+
+    .navbar-nav .nav-item img {
+        margin-left: 10px; /* Add space between the last link and the profile picture */
+    }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand fs-1" href="{% url 'home' %}">Bidly</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!-- Left Section: Brand and Navigation Links -->
+        <a class="navbar-brand fs-1" href="{% url 'home' %}">Bidly</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'auctions' %}">Auctions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Middle Section: Search Bar -->
+            <form class="d-flex mx-auto" role="search" style="width: 30%;">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
+
+            <!-- Right Section: Profile Picture, Profile Link, and Logout -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                        <a class="nav-link" href="{% url 'payments' %}">Payments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
-                    
-                    {% else %}
+                    <li class="nav-item">
+                        <!-- Display the profile picture -->
+                        {% if user.profile_picture %}
+                            <a href="{% url 'profile' %}">
+                                <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            </a>
+                        {% else %}
+                            <a href="{% url 'profile' %}">
+                                <img src="{% static 'images/default_pp.jpg' %}" alt="Default Profile Picture" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            </a>
+                        {% endif %}
+                    </li>
+                {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Log in</a>
                     </li>
@@ -428,23 +471,10 @@
                         <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
                     </li>
                 {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Auctions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
-            </div>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 
     {% if messages %}

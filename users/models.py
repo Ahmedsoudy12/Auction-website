@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     notify_me = models.BooleanField(default=False)  # Checkbox for email notifications
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
 
     def __str__(self):
         return self.username
