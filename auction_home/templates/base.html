@@ -411,7 +411,7 @@
 </head>
 <body>
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <!-- Left Section: Brand and Navigation Links -->
         <a class="navbar-brand fs-1" href="{% url 'home' %}">Bidly</a>
@@ -426,7 +426,11 @@
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'auctions' %}">Auctions</a>
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'auctions' %}">Auctions</a>
+                    {% else %}
+                        <a class="nav-link" href="#" onclick="alert('You need to log in first!');">Auctions</a>
+                    {% endif %}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">About</a>
@@ -445,23 +449,22 @@
             <!-- Right Section: Profile Picture, Profile Link, and Logout -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'payments' %}">Payments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <!-- Display the profile picture -->
-                        {% if user.profile_picture %}
-                            <a href="{% url 'profile' %}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <!-- Profile Picture -->
+                            {% if user.profile_picture %}
                                 <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                            </a>
-                        {% else %}
-                            <a href="{% url 'profile' %}">
+                            {% else %}
                                 <img src="{% static 'images/default_pp.jpg' %}" alt="Default Profile Picture" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                            </a>
-                        {% endif %}
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'my_auctions' %}">My Auctions</a></li>
+                            <li><a class="dropdown-item" href="{% url 'payments' %}">Payments</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
                     </li>
                 {% else %}
                     <li class="nav-item">

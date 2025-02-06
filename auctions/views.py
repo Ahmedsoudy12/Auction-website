@@ -4,12 +4,39 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.timezone import now
+from django.core.paginator import Paginator
+from .forms import AuctionForm
 
 @login_required
 def auctions(request):
-    auctions = Auction.objects.all()  
+    auction_list = Auction.objects.all().order_by('-created_at')  # Fetch all auctions, ordered by creation date
+    paginator = Paginator(auction_list, 5)  # Show 5 auctions per page
+    page_number = request.GET.get('page')  # Get the current page number from the query parameters
+    auctions = paginator.get_page(page_number)  # Get the auctions for the current page
     return render(request, 'auctions.html', {'auctions': auctions})
 
+@login_required
+def my_auctions(request):
+    user_auctions = Auction.objects.filter(created_by=request.user).order_by('-created_at')
+    
+    paginator = Paginator(user_auctions, 2)  # Show 2 auctions per page
+    page_number = request.GET.get('page')  # Get the current page number from the query parameters
+    user_auctions = paginator.get_page(page_number)  # Get the auctions for the current page
+    
+    return render(request, 'my_auctions.html', {'auctions': user_auctions})
+
+
+@login_required
+def edit_auction(request, pk):
+    auction = get_object_or_404(Auction, pk=pk, created_by=request.user)  # Ensure the user owns the auction
+    if request.method == 'POST':
+        form = AuctionForm(request.POST, request.FILES, instance=auction)
+        if form.is_valid():
+            form.save()
+            return redirect('my_auctions')  # Redirect to "My Auctions" page after saving
+    else:
+        form = AuctionForm(instance=auction)  # Pre-fill the form with the auction's details
+    return render(request, 'edit_auction.html', {'form': form, 'auction': auction})
 
 
 @login_required

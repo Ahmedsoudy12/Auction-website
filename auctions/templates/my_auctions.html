@@ -1,30 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Ongoing Auctions{% endblock %}
+{% block title %}My Auctions{% endblock %}
 
 {% block content %}
-
 <div class="container mt-5">
-    <!-- Heading with Image -->
-    <div class="d-flex align-items-center justify-content-center mb-4">
-        <img src="{% static 'images/live_icon.jpg' %}" alt="Auction Icon" style="width: 240px; height: 90px; margin-right: 1px;">
-        <h1 class="text-center">Auctions</h1>
-    </div>
+    <h1 class="text-center mb-4">My Auctions</h1>
 
-    <!-- Button to Add a New Auction -->
-    <div class="text-center mb-4">
-        <a href="{% url 'my_auctions' %}" class="btn btn-secondary" style="background-color: #6c757d; border: none;">My Auctions</a>
-        <a href="{% url 'add_auction' %}" class="btn btn-primary" style="background-color: #863999; border: none;">Add New Auction</a>
-    </div>
-
-    
-
-    <!-- Display Ongoing Auctions -->
     <div class="row">
         {% for auction in auctions %}
         <div class="col-12 mb-4">
             <div class="d-flex align-items-center" style="background-color: #222; color: #fff; border-radius: 10px; padding: 15px;">
-                <!-- Auction Image -->
                 <div style="flex: 1; max-width: 200px;">
                     {% if auction.image %}
                     <img src="{{ auction.image.url }}" alt="{{ auction.title }}" style="width: 100%; height: auto; border-radius: 10px;">
@@ -32,22 +17,21 @@
                     <img src="{% static 'images/default_product.jpg' %}" alt="Default Image" style="width: 100%; height: auto; border-radius: 10px;">
                     {% endif %}
                 </div>
-
-                <!-- Auction Details -->
                 <div style="flex: 2; margin-left: 20px;">
                     <h5>{{ auction.title }}</h5>
                     <p><strong>Description:</strong> {{ auction.description }}</p>
-                    <p class="starting-price"><strong>Starting Price:</strong> ${{ auction.starting_price }}</p>
-                    <p class="current-price"><strong>Current Price:</strong> ${{ auction.current_price }}</p>
-                    <p><strong>Created By:</strong> {{ auction.created_by.username }}</p>
+                    <p><strong>Starting Price:</strong> ${{ auction.starting_price }}</p>
+                    <p><strong>Current Price:</strong> ${{ auction.current_price }}</p>
                     <p><strong>Created At:</strong> {{ auction.created_at|date:"M d, Y H:i" }}</p>
+                    <a href="{% url 'edit_auction' auction.pk %}" class="btn btn-secondary mt-2" style="background-color: #6c757d; border: none;">Edit</a>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-center">No ongoing auctions at the moment. Be the first to add one!</p>
+        <p class="text-center">You have not created any auctions yet.</p>
         {% endfor %}
     </div>
+
 
     <!-- Pagination Controls -->
     <div class="d-flex justify-content-center mt-4">
@@ -86,14 +70,12 @@
         </nav>
     </div>
 
-
-
-
 </div>
 
 
 <style>
-    body {
+
+body {
     padding-top: 70px;
 }
 
@@ -126,7 +108,6 @@
         color: #fff; /* Active page text color */
         border-color: #863999; /* Active page border color */
     }
-
-
 </style>
+
 {% endblock %}
