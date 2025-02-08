@@ -1,1 +1,20 @@
-auction_home/__pycache__
+# Ignore compiled Python files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+.DS_store
+
+# Ignore environment variables and secrets
+.env
+*.env
+
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore Django migrations cache
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
