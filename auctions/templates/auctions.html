@@ -27,7 +27,9 @@
                 <!-- Auction Image -->
                 <div style="flex: 1; max-width: 200px;">
                     {% if auction.image %}
-                    <img src="{{ auction.image.url }}" alt="{{ auction.title }}" style="width: 100%; height: auto; border-radius: 10px;">
+                    <a href="{% url 'auction_detail' auction.id %}">
+                        <img src="{{ auction.image.url }}" alt="{{ auction.title }}" style="width: 100%; height: auto; border-radius: 10px;">
+                    </a>
                     {% else %}
                     <img src="{% static 'images/default_product.jpg' %}" alt="Default Image" style="width: 100%; height: auto; border-radius: 10px;">
                     {% endif %}
@@ -35,7 +37,9 @@
 
                 <!-- Auction Details -->
                 <div style="flex: 2; margin-left: 20px;">
-                    <h5>{{ auction.title }}</h5>
+                    <a href="{% url 'auction_detail' auction.id %}" style="text-decoration: none; color: white; font-weight: bold;">
+                        {{ auction.title }}
+                    </a>
                     <p><strong>Description:</strong> {{ auction.description }}</p>
                     <p class="starting-price"><strong>Starting Price:</strong> ${{ auction.starting_price }}</p>
                     <p class="current-price"><strong>Current Price:</strong> ${{ auction.current_price }}</p>

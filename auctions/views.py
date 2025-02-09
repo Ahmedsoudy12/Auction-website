@@ -57,7 +57,7 @@ def add_auction(request):
             ends_at=ends_at,
             image=image
         )
-        return redirect('auctions')  # Replace 'auctions' with the name of your auctions page URL
+        return redirect('auctions')  
 
     return render(request, 'add_auction.html')
 
