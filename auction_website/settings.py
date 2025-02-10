@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'reviews',
     'analytics',
     'frontend',
+    'chat',
 ]
 
 MIDDLEWARE = [

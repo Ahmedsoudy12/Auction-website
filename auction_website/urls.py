@@ -12,6 +12,7 @@ urlpatterns = [
     path('notifications/', include('notifications.urls')),   # include the urls.py of the notifications app
     path('reviews/', include('reviews.urls')),        # include the urls.py of the reviews app
     path('analytics/', include('analytics.urls')),    # include the urls.py of the analytics app
+    path('chat/', include('chat.urls')),
     
 ]
 

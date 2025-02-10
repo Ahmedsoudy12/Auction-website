@@ -66,7 +66,7 @@ def add_auction(request):
 @login_required
 def auction_detail(request, pk):
     auction = get_object_or_404(Auction, pk=pk)
-    bids = auction.bids.all().order_by('-created_at') 
+    bids = auction.bids.all().order_by('-created_at')
 
     if request.method == 'POST':
 

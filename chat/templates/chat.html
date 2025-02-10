@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="color: #fff;">Chat with Bidders</h1>
+    
+    <!-- Chat Box -->
+    <div class="chat-box" style="background-color: #222; border-radius: 10px; padding: 20px; max-height: 500px; overflow-y: auto; color: #fff;">
+        <!-- Example Messages -->
+        <div class="message mb-3">
+            <strong style="color: #863999;">User1:</strong> Hello, is this item still available?
+        </div>
+        <div class="message mb-3">
+            <strong style="color: #863999;">User2:</strong> Yes, it is! The auction ends tomorrow.
+        </div>
+        <!-- Add more messages dynamically -->
+    </div>
+
+    <!-- Message Input -->
+    <form method="POST" class="mt-4">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="message" class="form-control" placeholder="Type your message..." required>
+            <button type="submit" class="btn btn-primary" style="background-color: #863999; border: none;">Send</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
