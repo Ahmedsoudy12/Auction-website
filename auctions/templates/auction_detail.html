@@ -130,7 +130,7 @@
                     <button type="submit" class="btn btn-primary submit-button">Submit offer</button>
                 
                     <!-- Chat with Bidders Button -->
-                    <a href="{% url 'chat' %}" class="btn btn-danger chat-button">Discussion Room</a>
+                    <a href="{% url 'chat' auction.id %}" class="btn btn-danger chat-button">Discussion Room</a>
                 </div>
             </form>
             {% if error %}

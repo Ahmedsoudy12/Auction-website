@@ -18,25 +18,25 @@
                 <!-- Message -->
                 <li class="d-flex mb-4 {% if message.user == request.user %}justify-content-end{% else %}justify-content-start{% endif %}">
                     {% if message.user == request.user %}
-                        <div>
-                            <!-- <strong class="d-block text-end">{{ message.user.username }}</strong> -->
+                        <div class="text-end">
                             <div class="bg-success text-dark rounded p-2 d-inline-block" style="max-width: 75%;">
+                                <strong class="d-block">{{ message.user.username }}</strong>
                                 <div class="message-content">
-                                <span>{{ message.message }}</span>
+                                    <span>{{ message.message }}</span>
+                                    <small class="timestamp text-muted d-block">{{ message.timestamp|time:"H:i" }}</small>
                                 </div>
-                                <small class="timestamp  d-block text-end">{{ message.timestamp }}</small>
                             </div>
                         </div>
                         <img class="rounded-circle ms-2" src="{{ message.user.profile_picture.url }}" alt="User" style="width: 40px; height: 40px;">
                     {% else %}
                         <img class="rounded-circle me-2" src="{{ message.user.profile_picture.url }}" alt="User" style="width: 40px; height: 40px;">
                         <div>
-                            <strong class="d-block">{{ message.user.username }}</strong>
                             <div class="bg-light text-dark rounded p-2 d-inline-block" style="max-width: 75%;">
+                                <strong class="d-block">{{ message.user.username }}</strong>
                                 <div class="message-content">
-                                <span>{{ message.message }}</span>
+                                    <span>{{ message.message }}</span>
+                                    <small class="timestamp text-muted d-block">{{ message.timestamp|time:"H:i" }}</small>
                                 </div>
-                                <small class="text-muted d-block">{{ message.timestamp }}</small>
                             </div>
                         </div>
                     {% endif %}
@@ -61,20 +61,15 @@
     }
 
     .timestamp {
-        font-size: 0.8rem; /* Adjust the font size as needed */
+        font-size: 0.8rem;
         color: rgb(177, 182, 175);
         white-space: nowrap;
     }
 
-    .bg-success, .bg-light {
-        word-wrap: break-word; /* Ensure long words break to fit within the container */
-    }   
-    
     .message-content {
-    width: 40ch;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 40ch; /* Limit the width to 20 characters */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 20ch; /* Limit the width to 20 characters */
     }
 </style>
 {% endblock %}
