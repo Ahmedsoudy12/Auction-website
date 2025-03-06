@@ -8,7 +8,7 @@
     <h1 class="text-center mb-4 text-white">Chat for Auction: {{ auction.title }}</h1>
     
     <!-- Chat Box -->
-    <div class="card bg-dark text-white mx-auto" style="width: 800px; height: 650px;">
+    <div class="card chat-box text-white mx-auto" style="width: 800px; height: 650px;">
         <div class="card-header text-center text-success">
             <span id="online-count">3</span> online
         </div>
@@ -60,9 +60,17 @@
         padding-top: 70px;
     }
 
+    /* Chat box background */
+    .chat-box {
+        background-color: #f3f3f3; /* Light gray background */
+        color: #000; /* Black text */
+        border-radius: 10px; /* Optional: Rounded corners */
+        padding: 10px; /* Optional: Add padding inside the chat box */
+    }
+    
     .timestamp {
-        font-size: 0.8rem; /* Adjust the font size as needed */
-        color: rgb(177, 182, 175);
+        font-size: 0.7rem; /* Adjust the font size as needed */
+        color: rgb(191, 199, 188);
         white-space: nowrap;
     }
 
@@ -70,11 +78,64 @@
         word-wrap: break-word; /* Ensure long words break to fit within the container */
     }   
     
+    .d-block {
+        text-align: left;
+        margin-left: 30px;
+    }
+
     .message-content {
-    width: 40ch;
+    width: 25ch;
+    font-size: 16px;
+    text-align: left;
+    line-height: 1.1;
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 40ch; /* Limit the width to 20 characters */
     }
+
+    /* Sent message (current user) */
+    .d-flex.justify-content-end img {
+        margin-left: 2px; /* Reduce the space between the image and the message */
+    }
+
+    .d-flex.justify-content-end .bg-success {
+        margin-right: 2px; /* Adjust the space between the message and the edge */
+    }
+
+    /* Received message (other users) */
+    .d-flex.justify-content-start img {
+        margin-right: 5px; /* Reduce the space between the image and the message */
+    }
+
+    .d-flex.justify-content-start .bg-light {
+        margin-left: 5px; /* Adjust the space between the message and the edge */
+    }
+
+
+
+
+
+    /* Sent message bubble (current user) */
+    .bg-success {
+        background-color: #5080a2 !important; /* Change the background color */
+        color: #fff !important; /* Change the text color */
+        padding: 10px !important; /* Adjust the padding inside the bubble */
+        border-radius: 15px !important; /* Adjust the roundness of the bubble */
+        max-width: 100% !important; /* Limit the width of the bubble */
+        margin-right: 5px !important; /* Adjust spacing */
+    }
+
+    /* Received message bubble (other users) */
+    .bg-light {
+        background-color: #9da1a5 !important; /* Change the background color */
+        color: #ffffff !important; /* Change the text color */
+        padding: 10px; /* Adjust the padding inside the bubble */
+        border-radius: 15px; /* Adjust the roundness of the bubble */
+        max-width: 75%; /* Limit the width of the bubble */
+        margin-left: 5px; /* Adjust spacing */
+    }
+
+
+
 </style>
 {% endblock %}
