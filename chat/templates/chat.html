@@ -138,4 +138,45 @@
 
 
 </style>
+
+<script>
+    const auctionId = "{{ auction.id }}";
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + auctionId + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageList = document.querySelector('.list-unstyled');
+        const newMessage = document.createElement('li');
+        newMessage.classList.add('d-flex', 'mb-4', 'justify-content-start');
+        newMessage.innerHTML = `
+            <img class="rounded-circle me-2" src="/static/default-profile.png" alt="User" style="width: 40px; height: 40px;">
+            <div>
+                <strong class="d-block">${data.user}</strong>
+                <div class="bg-light text-dark rounded p-2 d-inline-block" style="max-width: 75%;">
+                    <div class="message-content">
+                        <span>${data.message}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        messageList.appendChild(newMessage);
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat_message_form').onsubmit = function(e) {
+        e.preventDefault();
+        const messageInput = document.querySelector('input[name="message"]');
+        const message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = '';
+    };
+</script>
+
 {% endblock %}
